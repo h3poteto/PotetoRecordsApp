@@ -73,7 +73,7 @@
     CGRect date_caption_rect = CGRectMake(20, 90, 100, 30);
     UILabel *date_caption_label = [[UILabel alloc] initWithFrame:date_caption_rect];
     date_caption_label.textColor = [UIColor blackColor];
-    date_caption_label.font = [UIFont fontWithName:@"Helvetica" size:13];
+    date_caption_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
     date_caption_label.textAlignment = NSTextAlignmentLeft;
     date_caption_label.numberOfLines = 1;
     date_caption_label.text = @"日付";
@@ -92,7 +92,7 @@
     UILabel *date_label = [[UILabel alloc] initWithFrame:date_rect];
     date_label.backgroundColor = [UIColor lightGrayColor];
     date_label.textColor = [UIColor blackColor];
-    date_label.font = [UIFont fontWithName:@"Helvetica" size:14];
+    date_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
     date_label.textAlignment = NSTextAlignmentCenter;
     date_label.numberOfLines = 1;
     date_label.text = [fmt_date stringFromDate:datetime];
@@ -109,7 +109,7 @@
     CGRect menu_caption_rect = CGRectMake(20, 150, 100, 30);
     UILabel *menu_caption_label = [[UILabel alloc] initWithFrame:menu_caption_rect];
     menu_caption_label.textColor = [UIColor blackColor];
-    menu_caption_label.font = [UIFont fontWithName:@"Helvetica" size:13];
+    menu_caption_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
     menu_caption_label.textAlignment = NSTextAlignmentLeft;
     menu_caption_label.numberOfLines = 1;
     menu_caption_label.text = @"メニュー";
@@ -124,7 +124,7 @@
     UILabel *menu_label = [[UILabel alloc] initWithFrame:menu_rect];
     menu_label.backgroundColor = [UIColor lightGrayColor];
     menu_label.textColor = [UIColor blackColor];
-    menu_label.font = [UIFont fontWithName:@"Helvetica" size:14];
+    menu_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
     menu_label.textAlignment = NSTextAlignmentCenter;
     menu_label.text = [parent stringForColumn:@"name"];
     [scrollView addSubview:menu_label];
@@ -144,7 +144,7 @@
         UILabel *child_menu_label = [[UILabel alloc] initWithFrame:child_menu_rect];
         child_menu_label.backgroundColor = [UIColor lightGrayColor];
         child_menu_label.textColor = [UIColor blackColor];
-        child_menu_label.font = [UIFont fontWithName:@"Helvetica" size:14];
+        child_menu_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
         child_menu_label.textAlignment = NSTextAlignmentCenter;
         child_menu_label.text = [children stringForColumn:@"name"];
         [scrollView addSubview:child_menu_label];

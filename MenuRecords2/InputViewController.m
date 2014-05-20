@@ -67,7 +67,7 @@
     CGRect date_label_rect = CGRectMake(20, 90, 100, 30);
     UILabel *date_label = [[UILabel alloc] initWithFrame:date_label_rect];
     date_label.textColor = [UIColor blackColor];
-    date_label.font = [UIFont fontWithName:@"Helvetica" size:13];
+    date_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
     date_label.textAlignment = NSTextAlignmentLeft;
     date_label.numberOfLines = 1;
     date_label.text = @"日付";
@@ -76,7 +76,7 @@
     // 日付ボタン描画
     UIButton *date_button = [[UIButton alloc] initWithFrame:CGRectMake(100, 90, 200, 30)];
     [date_button setTitle:string_date forState:UIControlStateNormal];
-    [date_button setFont:[UIFont fontWithName:@"Helvetica" size:14]];
+    [date_button setFont:[UIFont fontWithName:@"HiraKakuProN-W3" size:14]];
     [date_button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [date_button addTarget:self action:@selector(touchDate:) forControlEvents:UIControlEventTouchUpInside];
     [date_button setBackgroundColor:[UIColor lightGrayColor]];
@@ -90,7 +90,7 @@
     
     customTextField.borderStyle = UITextBorderStyleRoundedRect;
     customTextField.textAlignment = NSTextAlignmentLeft;
-    customTextField.font = [UIFont fontWithName:@"Helvetica" size:14];
+    customTextField.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
     customTextField.placeholder = @"例：ブリの照り焼き";
     customTextField.keyboardType = UIKeyboardTypeDefault;
     customTextField.returnKeyType = UIReturnKeyNext;
@@ -104,7 +104,7 @@
     CGRect label_rect = CGRectMake(20, 150, 100, 30);
     UILabel *label = [[UILabel alloc] initWithFrame:label_rect];
     label.textColor = [UIColor blackColor];
-    label.font = [UIFont fontWithName:@"Helvetica" size:13];
+    label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
     label.textAlignment = NSTextAlignmentLeft;
     label.numberOfLines = 1;
     label.text = @"メニュー";
@@ -295,7 +295,7 @@
 
     customTextField.borderStyle = UITextBorderStyleRoundedRect;
     customTextField.textAlignment = NSTextAlignmentLeft;
-    customTextField.font = [UIFont fontWithName:@"Helvetica" size:14];
+    customTextField.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
     customTextField.keyboardType = UIKeyboardTypeDefault;
     customTextField.returnKeyType = UIReturnKeyNext;
     customTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
