@@ -18,29 +18,29 @@
 #import "FMDatabase.h"
 
 @interface InputViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>{
-    NSString        *db_path;
-    UIActionSheet   *basicSheet;
-    UIActionSheet   *colorSheet;
-    UIScrollView    *scrollView;
-    NSInteger       menu_index;
-    NSArray         *textField_array;
-    NSString        *saveStr; //　一時保保管
-    UIColor         *saveColor; // 一時保管
-    NSInteger       tagColorbutton;
+    NSString        *_dbPath;
+    UIActionSheet   *_basicSheet;
+    UIActionSheet   *_colorSheet;
+    UIScrollView    *_scrollView;
+    NSInteger       _menuIndex;
+    NSArray         *_textFieldArray;
+    NSString        *_saveStr; //　一時保保管
+    UIColor         *_saveColor; // 一時保管
+    NSInteger       _tagColorbutton;
 }
-@property (weak, nonatomic) IBOutlet UIButton   *recordDate;
-@property (strong, nonatomic) NSDate            *date_value; // date_value設定値
-@property (weak, nonatomic) IBOutlet UIButton   *addMenuButton;
-@property (weak, nonatomic) IBOutlet UIButton   *submitButton;
+@property (strong, nonatomic) IBOutlet UIButton   *recordDate;
+@property (strong, nonatomic) NSDate            *dateValue; // date_value設定値
+@property (strong, nonatomic) IBOutlet UIButton   *addMenuButton;
+@property (strong, nonatomic) IBOutlet UIButton   *submitButton;
 @property (strong, nonatomic) IBOutlet UIButton *colorTagButton;
 
 
-- (void)Submit:(id)sender;
+- (void)submit:(id)sender;
 - (void)touchDate:(id)sender;
 - (void)getSelectedTime;
 - (void)dismissSet;
 - (void)cancelSet;
-- (void)button_Tupped:(id)sender;
+- (void)buttonTupped:(id)sender;
 - (void)touchColorTagButton:(id)sender;
 - (void)colorSet;
 - (void)colorCancelSet;

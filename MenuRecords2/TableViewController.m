@@ -38,16 +38,16 @@
     //DB confirm
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
     NSString *dir = [paths objectAtIndex:0];
-    db_path = [dir stringByAppendingPathComponent:@"menu_records.db"];
-    FMDatabase *db = [FMDatabase databaseWithPath:db_path];
+    _dbPath = [dir stringByAppendingPathComponent:@"menu_records.db"];
+    FMDatabase *db = [FMDatabase databaseWithPath:_dbPath];
     
     NSString *sql = @"SELECT * FROM menulogs WHERE parent_id = '-1';";
     [db open];
-    history = [db executeQuery:sql];
-    menu_list = [NSMutableArray array];
-    id_list = [NSMutableArray array];
-    date_list = [NSMutableArray array];
-    second_menu_list = [NSMutableArray array];
+    _history = [db executeQuery:sql];
+    _menuList = [NSMutableArray array];
+    _idList = [NSMutableArray array];
+    _dateList = [NSMutableArray array];
+    _secondMenuList = [NSMutableArray array];
     
     // datetime用format
     NSDateFormatter *fmt_datetime = [[NSDateFormatter alloc] init];
@@ -62,18 +62,18 @@
     [fmt_date setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
     [fmt_date setDateFormat:@"yyyy/MM/dd"];
  
-    while ([history next]) {
-        NSString *name = [history stringForColumn:@"name"];
-        int menu_id = [history intForColumn:@"id"];
+    while ([_history next]) {
+        NSString *name = [_history stringForColumn:@"name"];
+        int menu_id = [_history intForColumn:@"id"];
         NSString *date_sql = [[NSString alloc] initWithFormat:@"SELECT datetime(date,'localtime') FROM menulogs WHERE id = '%d';", menu_id];
         FMResultSet *date_log = [db executeQuery:date_sql];
         [date_log next];
         NSString *date = [date_log stringForColumnIndex:0];
-        [menu_list addObject:name];
+        [_menuList addObject:name];
         
         // date型変換
         NSDate *datetime = [fmt_datetime dateFromString:date];
-        [date_list addObject:[fmt_date stringFromDate:datetime]];
+        [_dateList addObject:[fmt_date stringFromDate:datetime]];
         
         // 子メニューを取得
         NSString *second_menu_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE parent_id = '%d';", menu_id];
@@ -82,19 +82,19 @@
         // 存在しなければwarningが出るけど気にしない，あとでpresent?確認を取って
         NSString *second_menu = [second_menu_result stringForColumn:@"name"];
         if (second_menu){
-            [second_menu_list addObject:second_menu];
+            [_secondMenuList addObject:second_menu];
         }else{
-            [second_menu_list addObject:@""];
+            [_secondMenuList addObject:@""];
         }
         
         // id
-        [id_list addObject:[NSNumber numberWithInteger:menu_id]];
+        [_idList addObject:[NSNumber numberWithInteger:menu_id]];
         
         // close
         [date_log close];
         [second_menu_result close];
     }
-    [history close];
+    [_history close];
     [db close];
 }
 
@@ -117,13 +117,13 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return menu_list.count;
+    return _menuList.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // database 準備
-    int menu_index = [[id_list objectAtIndex:indexPath.row] intValue];
+    int menu_index = [[_idList objectAtIndex:indexPath.row] intValue];
     // ShowMenuViewControllerに移動するため，menu_indexをNSUserDefaultsに格納
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setValue:[NSString stringWithFormat:@"%d", menu_index] forKey:@"menuIndex"];
@@ -140,8 +140,8 @@
     if(cell == nil){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
     }
-    cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@, %@...",[menu_list objectAtIndex:indexPath.row],[second_menu_list objectAtIndex:indexPath.row]];
-    cell.detailTextLabel.text = [date_list objectAtIndex:indexPath.row];
+    cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@, %@...",[_menuList objectAtIndex:indexPath.row],[_secondMenuList objectAtIndex:indexPath.row]];
+    cell.detailTextLabel.text = [_dateList objectAtIndex:indexPath.row];
     
     // record削除アクション実装
     
@@ -164,10 +164,10 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // dbを先に削除
-        int delete_target_id = [[id_list objectAtIndex:indexPath.row] intValue];
+        int delete_target_id = [[_idList objectAtIndex:indexPath.row] intValue];
         NSString *delete_child_sql = [[NSString alloc] initWithFormat:@"DELETE FROM menulogs WHERE parent_id = '%d';", delete_target_id];
         NSString *delete_parent_sql = [[NSString alloc] initWithFormat:@"DELETE FROM menulogs WHERE id = '%d';", delete_target_id];
-        FMDatabase *db = [FMDatabase databaseWithPath:db_path];
+        FMDatabase *db = [FMDatabase databaseWithPath:_dbPath];
         
         [db open];
         [db executeUpdate:delete_child_sql];
@@ -175,10 +175,10 @@
         [db close];
         
         // Delete the row from the data source
-        [menu_list removeObjectAtIndex:indexPath.row];
-        [id_list removeObjectAtIndex:indexPath.row];
-        [date_list removeObjectAtIndex:indexPath.row];
-        [second_menu_list removeObjectAtIndex:indexPath.row];
+        [_menuList removeObjectAtIndex:indexPath.row];
+        [_idList removeObjectAtIndex:indexPath.row];
+        [_dateList removeObjectAtIndex:indexPath.row];
+        [_secondMenuList removeObjectAtIndex:indexPath.row];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {

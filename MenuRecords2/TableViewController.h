@@ -10,12 +10,12 @@
 #import "FMDatabase.h"
 
 @interface TableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>{
-    NSString *db_path;
-    FMResultSet *history;
-    NSMutableArray *menu_list;
-    NSMutableArray *id_list;
-    NSMutableArray *date_list;
-    NSMutableArray *second_menu_list;
+    NSString *_dbPath;
+    FMResultSet *_history;
+    NSMutableArray *_menuList;
+    NSMutableArray *_idList;
+    NSMutableArray *_dateList;
+    NSMutableArray *_secondMenuList;
 }
 
 @end

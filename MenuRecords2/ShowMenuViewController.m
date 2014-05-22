@@ -28,19 +28,19 @@
     [super viewDidLoad];
     
     // prepare scroll view
-    scrollView = [[UIScrollView alloc] init];
-    scrollView.frame = self.view.bounds;
+    _scrollView = [[UIScrollView alloc] init];
+    _scrollView.frame = self.view.bounds;
     
-    scrollView.bounces = NO;
-    scrollView.contentSize = self.view.bounds.size;
-    [self.view addSubview:scrollView];
-    [scrollView flashScrollIndicators];
+    _scrollView.bounces = NO;
+    _scrollView.contentSize = self.view.bounds.size;
+    [self.view addSubview:_scrollView];
+    [_scrollView flashScrollIndicators];
 
     // database準備
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
     NSString *dir = [paths objectAtIndex:0];
-    db_path = [dir stringByAppendingPathComponent:@"menu_records.db"];
-    FMDatabase *db = [FMDatabase databaseWithPath:db_path];
+    _dbPath = [dir stringByAppendingPathComponent:@"menu_records.db"];
+    FMDatabase *db = [FMDatabase databaseWithPath:_dbPath];
     
     // datetime関連準備
     // datetime用format
@@ -77,7 +77,7 @@
     date_caption_label.textAlignment = NSTextAlignmentLeft;
     date_caption_label.numberOfLines = 1;
     date_caption_label.text = @"日付";
-    [scrollView addSubview:date_caption_label];
+    [_scrollView addSubview:date_caption_label];
     
     
     // 日時
@@ -97,7 +97,7 @@
     date_label.numberOfLines = 1;
     date_label.text = [fmt_date stringFromDate:datetime];
     
-    [scrollView addSubview:date_label];
+    [_scrollView addSubview:date_label];
     
     
     
@@ -113,7 +113,7 @@
     menu_caption_label.textAlignment = NSTextAlignmentLeft;
     menu_caption_label.numberOfLines = 1;
     menu_caption_label.text = @"メニュー";
-    [scrollView addSubview:menu_caption_label];
+    [_scrollView addSubview:menu_caption_label];
     
     // メニュー表示
     NSString *parent_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE id = '%d';", menu_index];
@@ -127,7 +127,7 @@
     menu_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
     menu_label.textAlignment = NSTextAlignmentCenter;
     menu_label.text = [parent stringForColumn:@"name"];
-    [scrollView addSubview:menu_label];
+    [_scrollView addSubview:menu_label];
     
     //---------------------------------
     // 子メニューの表示
@@ -137,8 +137,8 @@
     
     int child_index = 1;
     while ([children next]) {
-        if (child_index * 60 + 250 > scrollView.contentSize.height) {
-            scrollView.contentSize = CGSizeMake(scrollView.contentSize.width, child_index * 60 + 250);
+        if (child_index * 60 + 250 > _scrollView.contentSize.height) {
+            _scrollView.contentSize = CGSizeMake(_scrollView.contentSize.width, child_index * 60 + 250);
         }
         CGRect child_menu_rect = CGRectMake(100, child_index * 60 + 150, 200, 30);
         UILabel *child_menu_label = [[UILabel alloc] initWithFrame:child_menu_rect];
@@ -147,7 +147,7 @@
         child_menu_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
         child_menu_label.textAlignment = NSTextAlignmentCenter;
         child_menu_label.text = [children stringForColumn:@"name"];
-        [scrollView addSubview:child_menu_label];
+        [_scrollView addSubview:child_menu_label];
         child_index++;
     }
     [db close];

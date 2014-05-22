@@ -10,8 +10,8 @@
 #import "FMDatabase.h"
 
 @interface ShowMenuViewController : UIViewController{
-    NSString *db_path;
-    UIScrollView *scrollView;
+    NSString *_dbPath;
+    UIScrollView *_scrollView;
 }
 
 @end
