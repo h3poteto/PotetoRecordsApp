@@ -6,6 +6,9 @@
 //  Copyright (c) 2014年 AkiraFukushima. All rights reserved.
 //
 
+#define TOP_SPAN    90
+#define FIELD_SPAN  60
+
 #import <UIKit/UIKit.h>
 #import "FMDatabase.h"
 

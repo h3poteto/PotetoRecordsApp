@@ -70,7 +70,7 @@
     //-----------------------------
     
     // caption
-    CGRect date_caption_rect = CGRectMake(20, 90, 100, 30);
+    CGRect date_caption_rect = CGRectMake(20, TOP_SPAN, 100, 30);
     UILabel *date_caption_label = [[UILabel alloc] initWithFrame:date_caption_rect];
     date_caption_label.textColor = [UIColor blackColor];
     date_caption_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
@@ -88,7 +88,7 @@
     // date型変換
     NSDate *datetime = [fmt_datetime dateFromString:date];
     
-    CGRect date_rect = CGRectMake(100, 90, 200, 30);
+    CGRect date_rect = CGRectMake(100, TOP_SPAN, 200, 30);
     UILabel *date_label = [[UILabel alloc] initWithFrame:date_rect];
     date_label.backgroundColor = [UIColor lightGrayColor];
     date_label.textColor = [UIColor blackColor];
@@ -99,6 +99,44 @@
     
     [_scrollView addSubview:date_label];
     
+    //---------------------------------
+    //  カラータグの表示
+    //---------------------------------
+    // ラベル
+    CGRect color_tag_caption_rect = CGRectMake(20, TOP_SPAN + FIELD_SPAN, 100, 30);
+    UILabel *color_tag_caption_label = [[UILabel alloc] initWithFrame:color_tag_caption_rect];
+    color_tag_caption_label.textColor = [UIColor blackColor];
+    color_tag_caption_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
+    color_tag_caption_label.textAlignment = NSTextAlignmentLeft;
+    color_tag_caption_label.numberOfLines = 1;
+    color_tag_caption_label.text = @"カラータグ";
+    [_scrollView addSubview:color_tag_caption_label];
+    
+    // カラータグ
+    NSString *color_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE id = '%d';", menu_index];
+    FMResultSet *color_log = [db executeQuery:color_sql];
+    [color_log next];
+    NSString    *hex_color = [color_log stringForColumn:@"color_tag"];
+    NSString    *red_hex = [hex_color substringWithRange:(NSRange){0,2}];
+    NSString    *green_hex = [hex_color substringWithRange:(NSRange){2,2}];
+    NSString    *blue_hex = [hex_color substringWithRange:(NSRange){4,2}];
+    NSScanner   *red_scan = [NSScanner scannerWithString:red_hex];
+    NSScanner   *green_scan = [NSScanner scannerWithString:green_hex];
+    NSScanner   *blue_scan = [NSScanner scannerWithString:blue_hex];
+    
+    unsigned int    red_int;
+    unsigned int    green_int;
+    unsigned int    blue_int;
+    [red_scan scanHexInt:&red_int];
+    [green_scan scanHexInt:&green_int];
+    [blue_scan scanHexInt:&blue_int];
+    
+    UIColor     *color = [[UIColor alloc] initWithRed:(CGFloat)(red_int / 255.0) green:(CGFloat)(green_int / 255.0) blue:(CGFloat)(blue_int / 255.0) alpha:1.0];
+    
+    CGRect      color_tag_rect = CGRectMake(100, TOP_SPAN + FIELD_SPAN, 200, 30);
+    UILabel     *color_tag_label = [[UILabel alloc] initWithFrame:color_tag_rect];
+    color_tag_label.backgroundColor = color;
+    [_scrollView addSubview:color_tag_label];
     
     
     //---------------------------------
@@ -106,8 +144,8 @@
     //---------------------------------
     
     // メニューcaption
-    CGRect menu_caption_rect = CGRectMake(20, 150, 100, 30);
-    UILabel *menu_caption_label = [[UILabel alloc] initWithFrame:menu_caption_rect];
+    CGRect      menu_caption_rect = CGRectMake(20, TOP_SPAN + FIELD_SPAN * 2, 100, 30);
+    UILabel     *menu_caption_label = [[UILabel alloc] initWithFrame:menu_caption_rect];
     menu_caption_label.textColor = [UIColor blackColor];
     menu_caption_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
     menu_caption_label.textAlignment = NSTextAlignmentLeft;
@@ -116,12 +154,12 @@
     [_scrollView addSubview:menu_caption_label];
     
     // メニュー表示
-    NSString *parent_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE id = '%d';", menu_index];
+    NSString    *parent_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE id = '%d';", menu_index];
     FMResultSet *parent = [db executeQuery:parent_sql];
     [parent next];
     
-    CGRect menu_rect = CGRectMake(100, 150, 200, 30);
-    UILabel *menu_label = [[UILabel alloc] initWithFrame:menu_rect];
+    CGRect      menu_rect = CGRectMake(100, TOP_SPAN + FIELD_SPAN * 2, 200, 30);
+    UILabel     *menu_label = [[UILabel alloc] initWithFrame:menu_rect];
     menu_label.backgroundColor = [UIColor lightGrayColor];
     menu_label.textColor = [UIColor blackColor];
     menu_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
@@ -132,15 +170,15 @@
     //---------------------------------
     // 子メニューの表示
     //---------------------------------
-    NSString *children_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE parent_id = '%d';", menu_index];
+    NSString    *children_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE parent_id = '%d';", menu_index];
     FMResultSet *children = [db executeQuery:children_sql];
     
-    int child_index = 1;
+    int     child_index = 2;
     while ([children next]) {
-        if (child_index * 60 + 250 > _scrollView.contentSize.height) {
-            _scrollView.contentSize = CGSizeMake(_scrollView.contentSize.width, child_index * 60 + 250);
+        if (child_index * FIELD_SPAN + 250 > _scrollView.contentSize.height) {
+            _scrollView.contentSize = CGSizeMake(_scrollView.contentSize.width, child_index * FIELD_SPAN + 250);
         }
-        CGRect child_menu_rect = CGRectMake(100, child_index * 60 + 150, 200, 30);
+        CGRect  child_menu_rect = CGRectMake(100, child_index * FIELD_SPAN + TOP_SPAN, 200, 30);
         UILabel *child_menu_label = [[UILabel alloc] initWithFrame:child_menu_rect];
         child_menu_label.backgroundColor = [UIColor lightGrayColor];
         child_menu_label.textColor = [UIColor blackColor];
