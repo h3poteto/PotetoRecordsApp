@@ -17,7 +17,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    NSUserDefaults  *user_defaults = [NSUserDefaults standardUserDefaults];
+    NSString        *email = [user_defaults valueForKeyPath:@"email"];
+    NSString        *password = [user_defaults valueForKeyPath:@"password"];
+    
+    if (email && password) {
+        [[WebAPIClient sharedClient] setEmail:email password:password];
+        [[WebAPIClient sharedClient] getIndexWhenSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        } failure:^(int statusCode, NSString *errorString) {
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning

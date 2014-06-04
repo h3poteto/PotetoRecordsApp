@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WebAPIClient.h"
 
 @interface ViewController : UIViewController
 
