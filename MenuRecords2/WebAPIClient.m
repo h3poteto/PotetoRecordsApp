@@ -40,11 +40,13 @@ static WebAPIClient *_sharedClient;
 
 - (void)getIndexWhenSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                     failure:(void (^)(int, NSString *))failure
+                    target_file:(NSString *)target_file
+                    parameters:(NSDictionary *)parameters
 {
-    NSDictionary    *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                               SECRET_TOKEN, @"token",
-                               nil];
-    [self   GET:@"friends.json"
+    NSMutableDictionary    *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    [params setObject:SECRET_TOKEN forKey:@"token"];
+    
+    [self   GET:target_file
             parameters:params
             success:success
             failure:^(AFHTTPRequestOperation *operation, NSError *error){

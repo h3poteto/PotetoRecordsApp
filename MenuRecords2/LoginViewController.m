@@ -83,10 +83,6 @@
     [self.loginButton addTarget:self action:@selector(LoginButtonSubmit:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.loginButton];
     
-    // これトップでやろうか
-    if (email && password) {
-        [[WebAPIClient sharedClient] setEmail:email password:password];
-    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,6 +106,7 @@
     
     NSString    *email = self.emailField.text;
     NSString    *password = self.passwordField.text;
+    NSDictionary    *params = [[NSDictionary alloc] init];
     
     [[NSUserDefaults standardUserDefaults] setValue:email forKey:@"email"];
     [[WebAPIClient sharedClient] setEmail:email password:password];
@@ -118,7 +115,8 @@
         [SVProgressHUD showSuccessWithStatus:@"Saved"];
     } failure:^(int statusCode, NSString *errorString) {
         [SVProgressHUD showErrorWithStatus:@"Cannot Login"];
-    }];
+    } target_file:@"friends.json"
+     parameters:params];
     [self.emailField resignFirstResponder];
     [self.passwordField resignFirstResponder];
     

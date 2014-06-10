@@ -23,10 +23,12 @@
     NSString        *password = [user_defaults valueForKeyPath:@"password"];
     
     if (email && password) {
+        NSDictionary    *params = [[NSDictionary alloc] init];
         [[WebAPIClient sharedClient] setEmail:email password:password];
         [[WebAPIClient sharedClient] getIndexWhenSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         } failure:^(int statusCode, NSString *errorString) {
-        }];
+        } target_file:@"friends.json"
+         parameters:params];
     }
 }
 

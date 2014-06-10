@@ -12,6 +12,7 @@
 
 @interface FriendsTableViewController : UITableViewController{
     NSMutableArray  *_friends;
+    NSMutableArray  *_ids;
 }
 
 @end

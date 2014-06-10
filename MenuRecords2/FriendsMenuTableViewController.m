@@ -1,18 +1,18 @@
 //
-//  FriendsTableViewController.m
+//  FriendsMenuTableViewController.m
 //  MenuRecords2
 //
-//  Created by akirafukushima on 2014/05/30.
+//  Created by akirafukushima on 2014/06/05.
 //  Copyright (c) 2014年 AkiraFukushima. All rights reserved.
 //
 
-#import "FriendsTableViewController.h"
+#import "FriendsMenuTableViewController.h"
 
-@interface FriendsTableViewController ()
+@interface FriendsMenuTableViewController ()
 
 @end
 
-@implementation FriendsTableViewController
+@implementation FriendsMenuTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,29 +26,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
     
-    // ログイン確認はDidAppearではなく同期ボタンを作成すればいいのでは！
-    _friends = [NSMutableArray array];
-    _ids = [NSMutableArray array];
-    NSDictionary    *params = [[NSDictionary alloc] init];
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
     
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    _jsonMenu = [NSMutableArray array];
+    _firstMenu = [NSMutableArray array];
+    
+    // friend_idを受け取る
+    NSUserDefaults  *ud = [NSUserDefaults standardUserDefaults];
+    int             friend_id = [[ud valueForKey:@"friend_id"] intValue];
+    NSString        *target_url = [NSString stringWithFormat:@"%@/%d.json",@"friends",friend_id];
     [SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeBlack];
+    
+    NSDictionary    *params = [[NSDictionary alloc] init];
     [[WebAPIClient sharedClient] getIndexWhenSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (responseObject) {
-            for ( NSDictionary *json in responseObject ){
-                // _friendsに突っ込む
-                NSString    *email = [json objectForKey:@"email"];
-                [_friends addObject:email];
-                [_ids addObject:[json objectForKey:@"id"]];
-            }
-            [self.tableView reloadData];
-        }else{
-            _friends = nil;
+        // 配列に突っ込む
+        _jsonMenu = responseObject;
+        for ( NSDictionary *json in responseObject) {
+            [_firstMenu addObject:[json objectForKey:@"name"]];
         }
+        [self.tableView reloadData];
         [SVProgressHUD dismiss];
     } failure:^(int statusCode, NSString *errorString) {
         if (statusCode == 401) {
@@ -56,8 +57,7 @@
         }
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:errorString message:@"Cannot login" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
-        [SVProgressHUD dismiss];
-    } target_file:@"friends.json"
+    } target_file:target_url
      parameters:params];
 }
 
@@ -80,9 +80,8 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return _friends.count;
+    return _firstMenu.count;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -90,24 +89,26 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
     }
-    if (_friends.count > 0) {
-        cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@", [_friends objectAtIndex:indexPath.row]];
+    if (_firstMenu.count > 0) {
+        cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@", [_firstMenu objectAtIndex:indexPath.row]];
+        NSDictionary    *date_json = [_jsonMenu objectAtIndex:indexPath.row];
+        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%@", [date_json objectForKey:@"created_at"]];
     }
     
     return cell;
 }
 
 //=======================================
-//  friendsが選択されたとき
+//  menuが選択されたとき
 //=======================================
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    int             friend_id = [[_ids objectAtIndex:indexPath.row] intValue];
+    NSDictionary    *menu_json = [_jsonMenu objectAtIndex:indexPath.row];
+    int             menu_id = [[menu_json objectForKey:@"id"] intValue];
     NSUserDefaults  *ud = [NSUserDefaults standardUserDefaults];
-    [ud setValue:[NSString stringWithFormat:@"%d", friend_id] forKey:@"friend_id"];
+    [ud setValue:[NSString stringWithFormat:@"%d", menu_id] forKey:@"menu_id"];
     
-    // FriendsMenuTableViewに移動
-    [self performSegueWithIdentifier:@"selectFriend" sender:self];
+    [self performSegueWithIdentifier:@"selectMenu" sender:self];
 }
 
 /*

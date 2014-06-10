@@ -151,13 +151,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pjZ-SM-Sxb">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pjZ-SM-Sxb">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pjZ-SM-Sxb" id="c3s-wz-IUJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="N6g-MC-ZE6" kind="push" identifier="selectFriend" id="jpn-Jg-JbL"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -170,6 +173,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2W0-aP-WKP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1276" y="1523"/>
+        </scene>
+        <!--Friends Menu Table View Controller-->
+        <scene sceneID="Y70-ni-QfL">
+            <objects>
+                <tableViewController id="N6g-MC-ZE6" customClass="FriendsMenuTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Zwn-cA-vrI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vyJ-dY-Z80">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vyJ-dY-Z80" id="7xU-k4-yHm">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="TZb-JE-9vQ" kind="push" identifier="selectMenu" id="ebT-a9-eGQ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="N6g-MC-ZE6" id="4iP-RJ-vEZ"/>
+                            <outlet property="delegate" destination="N6g-MC-ZE6" id="2Xl-MR-6mj"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="QX3-eX-kM8"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BSv-Tg-IJV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1680" y="1523"/>
+        </scene>
+        <!--Show Friends Menu View Controller-->
+        <scene sceneID="qRa-7c-0Gh">
+            <objects>
+                <viewController id="TZb-JE-9vQ" customClass="ShowFriendsMenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0QA-Vg-t1x"/>
+                        <viewControllerLayoutGuide type="bottom" id="aAA-mq-V0P"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nQ6-5Y-TN4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="XPF-id-cW3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L8d-7Q-qmh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2066" y="1523"/>
         </scene>
         <!--Show Menu View Controller-->
         <scene sceneID="T4z-0D-KJj">

@@ -19,6 +19,7 @@
 		E94DBE7A192A09E300CBD904 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E94DBE79192A09E300CBD904 /* libsqlite3.0.dylib */; };
 		E95F808F193876F4005E1BAF /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95F808E193876F4005E1BAF /* FriendsTableViewController.m */; };
 		E986952719363FC5000E38E8 /* WebAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E986952619363FC5000E38E8 /* WebAPIClient.m */; };
+		E994B8E0194613F60004E705 /* ShowFriendsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E994B8DF194613F60004E705 /* ShowFriendsMenuViewController.m */; };
 		E99A9E47192A047C003F9668 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99A9E46192A047C003F9668 /* Foundation.framework */; };
 		E99A9E49192A047C003F9668 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99A9E48192A047C003F9668 /* CoreGraphics.framework */; };
 		E99A9E4B192A047C003F9668 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99A9E4A192A047C003F9668 /* UIKit.framework */; };
@@ -37,6 +38,7 @@
 		E9E0FA3A19362FA700A5E926 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9E0FA3919362FA700A5E926 /* Security.framework */; };
 		E9E0FA3C19362FB800A5E926 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9E0FA3B19362FB800A5E926 /* CFNetwork.framework */; };
 		E9E0FA3E19362FC500A5E926 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9E0FA3D19362FC500A5E926 /* SystemConfiguration.framework */; };
+		E9E3ED8219405DEE00167E7C /* FriendsMenuTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E3ED8119405DEE00167E7C /* FriendsMenuTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		E95F808E193876F4005E1BAF /* FriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableViewController.m; sourceTree = "<group>"; };
 		E986952519363FC5000E38E8 /* WebAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebAPIClient.h; sourceTree = "<group>"; };
 		E986952619363FC5000E38E8 /* WebAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebAPIClient.m; sourceTree = "<group>"; };
+		E994B8DE194613F60004E705 /* ShowFriendsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowFriendsMenuViewController.h; sourceTree = "<group>"; };
+		E994B8DF194613F60004E705 /* ShowFriendsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowFriendsMenuViewController.m; sourceTree = "<group>"; };
 		E99A9E43192A047C003F9668 /* MenuRecords2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MenuRecords2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99A9E46192A047C003F9668 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E99A9E48192A047C003F9668 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -98,6 +102,8 @@
 		E9E0FA3919362FA700A5E926 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E9E0FA3B19362FB800A5E926 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		E9E0FA3D19362FC500A5E926 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E9E3ED8019405DEE00167E7C /* FriendsMenuTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsMenuTableViewController.h; sourceTree = "<group>"; };
+		E9E3ED8119405DEE00167E7C /* FriendsMenuTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsMenuTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +205,8 @@
 				E99A9E55192A047C003F9668 /* AppDelegate.h */,
 				E99A9E56192A047C003F9668 /* AppDelegate.m */,
 				E99A9E58192A047C003F9668 /* Main.storyboard */,
+				E9E3ED8019405DEE00167E7C /* FriendsMenuTableViewController.h */,
+				E9E3ED8119405DEE00167E7C /* FriendsMenuTableViewController.m */,
 				E95F808D193876F4005E1BAF /* FriendsTableViewController.h */,
 				E95F808E193876F4005E1BAF /* FriendsTableViewController.m */,
 				E9BB949F1937280B008CE3B2 /* LoginViewController.h */,
@@ -215,6 +223,8 @@
 				E94DBE76192A09C600CBD904 /* TableViewController.m */,
 				E99A9E5E192A047C003F9668 /* Images.xcassets */,
 				E99A9E4D192A047C003F9668 /* Supporting Files */,
+				E994B8DE194613F60004E705 /* ShowFriendsMenuViewController.h */,
+				E994B8DF194613F60004E705 /* ShowFriendsMenuViewController.m */,
 			);
 			path = MenuRecords2;
 			sourceTree = "<group>";
@@ -380,6 +390,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9E3ED8219405DEE00167E7C /* FriendsMenuTableViewController.m in Sources */,
 				E94DBE78192A09C600CBD904 /* TableViewController.m in Sources */,
 				E94DBE77192A09C600CBD904 /* ShowMenuViewController.m in Sources */,
 				E9BB94A11937280B008CE3B2 /* LoginViewController.m in Sources */,
@@ -389,6 +400,7 @@
 				E986952719363FC5000E38E8 /* WebAPIClient.m in Sources */,
 				E99A9E57192A047C003F9668 /* AppDelegate.m in Sources */,
 				E94DBE6E192A09A400CBD904 /* FMDatabaseQueue.m in Sources */,
+				E994B8E0194613F60004E705 /* ShowFriendsMenuViewController.m in Sources */,
 				E99A9E53192A047C003F9668 /* main.m in Sources */,
 				E94DBE6B192A09A400CBD904 /* FMDatabase.m in Sources */,
 				E94DBE6F192A09A400CBD904 /* FMResultSet.m in Sources */,

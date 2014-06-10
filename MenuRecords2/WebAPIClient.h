@@ -17,7 +17,9 @@
 
 - (void)setEmail:(NSString *)email password:(NSString *)password;
 - (void)getIndexWhenSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                    failure:(void (^)(int statusCode, NSString *errorString))failure;
+                    failure:(void (^)(int statusCode, NSString *errorString))failure
+                target_file:(NSString *)target_file
+                 parameters:(NSDictionary *)parameters;
 - (int)statusCodeFromOperation:(AFHTTPRequestOperation *)operation;
 - (NSString *)errorStringFromOperation:(AFHTTPRequestOperation *)operation;
 @end
