@@ -65,8 +65,15 @@ static WebAPIClient *_sharedClient;
 
 - (NSString *)errorStringFromOperation:(AFHTTPRequestOperation *)operation
 {
-    NSError *error = nil;
-//    return [[operation.responseData objectFromJSONData] valueForKey:@"errors"];
-    return [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingAllowFragments error:&error];
+    NSError     *error = nil;
+    NSString    *result = nil;
+    
+    if (operation.responseData){
+        result = [NSJSONSerialization JSONObjectWithData:operation.responseData options:NSJSONReadingAllowFragments error:&error];
+    }else{
+        result = @"Connection Error";
+    }
+    
+    return result;
 }
 @end

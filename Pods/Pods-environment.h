@@ -48,6 +48,24 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 2
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 4
 
+// CollectionUtils
+#define COCOAPODS_POD_AVAILABLE_CollectionUtils
+#define COCOAPODS_VERSION_MAJOR_CollectionUtils 1
+#define COCOAPODS_VERSION_MINOR_CollectionUtils 0
+#define COCOAPODS_VERSION_PATCH_CollectionUtils 1
+
+// CollectionUtils/Compact
+#define COCOAPODS_POD_AVAILABLE_CollectionUtils_Compact
+#define COCOAPODS_VERSION_MAJOR_CollectionUtils_Compact 1
+#define COCOAPODS_VERSION_MINOR_CollectionUtils_Compact 0
+#define COCOAPODS_VERSION_PATCH_CollectionUtils_Compact 1
+
+// CollectionUtils-AFNetworking
+#define COCOAPODS_POD_AVAILABLE_CollectionUtils_AFNetworking
+#define COCOAPODS_VERSION_MAJOR_CollectionUtils_AFNetworking 1
+#define COCOAPODS_VERSION_MINOR_CollectionUtils_AFNetworking 0
+#define COCOAPODS_VERSION_PATCH_CollectionUtils_AFNetworking 1
+
 // SVProgressHUD
 #define COCOAPODS_POD_AVAILABLE_SVProgressHUD
 #define COCOAPODS_VERSION_MAJOR_SVProgressHUD 1
