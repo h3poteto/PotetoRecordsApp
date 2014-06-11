@@ -17,5 +17,6 @@
     NSMutableArray *_dateList;
     NSMutableArray *_secondMenuList;
 }
+- (IBAction)syncButton:(id)sender;
 
 @end

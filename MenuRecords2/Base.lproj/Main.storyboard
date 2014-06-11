@@ -136,7 +136,13 @@
                             <outlet property="delegate" destination="C1d-HD-67e" id="7qH-Eu-Pb8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="History" id="sU5-VK-v1o"/>
+                    <navigationItem key="navigationItem" title="History" id="sU5-VK-v1o">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="dnt-WR-iWx">
+                            <connections>
+                                <action selector="syncButton:" destination="C1d-HD-67e" id="RKa-x5-pbJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6la-f5-p8W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -74,7 +74,7 @@
     //-----------------------------
     
     // caption
-    CGRect date_caption_rect = CGRectMake(20, TOP_SPAN, 100, 30);
+    CGRect  date_caption_rect = CGRectMake(20, TOP_SPAN, 100, 30);
     UILabel *date_caption_label = [[UILabel alloc] initWithFrame:date_caption_rect];
     date_caption_label.textColor = [UIColor blackColor];
     date_caption_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
@@ -87,10 +87,10 @@
     // 日時
     // date型変換
     NSDictionary    *first_menu = [json objectAtIndex:0];
-    NSString    *date_string = [first_menu objectForKey:@"created_at"];
+    NSString        *date_string = [first_menu objectForKey:@"created_at"];
     
-    CGRect date_rect = CGRectMake(100, TOP_SPAN, 200, 30);
-    UILabel *date_label = [[UILabel alloc] initWithFrame:date_rect];
+    CGRect          date_rect = CGRectMake(100, TOP_SPAN, 200, 30);
+    UILabel         *date_label = [[UILabel alloc] initWithFrame:date_rect];
     date_label.backgroundColor = [UIColor lightGrayColor];
     date_label.textColor = [UIColor blackColor];
     date_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:14];
@@ -104,7 +104,7 @@
     //  カラータグの表示
     //---------------------------------
     // ラベル
-    CGRect color_tag_caption_rect = CGRectMake(20, TOP_SPAN + FIELD_SPAN, 100, 30);
+    CGRect  color_tag_caption_rect = CGRectMake(20, TOP_SPAN + FIELD_SPAN, 100, 30);
     UILabel *color_tag_caption_label = [[UILabel alloc] initWithFrame:color_tag_caption_rect];
     color_tag_caption_label.textColor = [UIColor blackColor];
     color_tag_caption_label.font = [UIFont fontWithName:@"HiraKakuProN-W3" size:13];
