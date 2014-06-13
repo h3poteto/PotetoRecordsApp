@@ -38,10 +38,13 @@ static WebAPIClient *_sharedClient;
 
 }
 
+//=========================================
+//  get method
+//=========================================
 - (void)getIndexWhenSuccess:(void (^)(AFHTTPRequestOperation *, id))success
                     failure:(void (^)(int, NSString *))failure
-                    target_file:(NSString *)target_file
-                    parameters:(NSDictionary *)parameters
+                target_file:(NSString *)target_file
+                 parameters:(NSDictionary *)parameters
 {
     NSMutableDictionary    *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
     [params setObject:SECRET_TOKEN forKey:@"token"];
@@ -54,6 +57,25 @@ static WebAPIClient *_sharedClient;
             }];
 }
 
+//=========================================
+//  post method
+//=========================================
+- (void)postParametersWhenSuccess:(void (^)(AFHTTPRequestOperation *, id))success
+                          failuer:(void (^)(int, NSString *))failure
+                      target_file:(NSString *)target_file
+                       parameters:(NSDictionary *)parameters
+{
+    NSMutableDictionary     *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    [params setObject:SECRET_TOKEN forKey:@"token"];
+    
+    [self   POST:target_file
+      parameters:params
+         success:success
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             failure([self statusCodeFromOperation:operation], [self errorStringFromOperation:operation]);
+         }];
+     
+}
 
 //=========================================
 //  Helper Methods

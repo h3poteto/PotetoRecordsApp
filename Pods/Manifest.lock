@@ -18,23 +18,19 @@ PODS:
   - AFNetworking/UIKit (2.2.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - CollectionUtils (1.0.1):
-    - CollectionUtils/Compact
-  - CollectionUtils-AFNetworking (1.0.1):
-    - AFNetworking (~> 2.0)
-    - CollectionUtils
-  - CollectionUtils/Compact (1.0.1)
+  - NSRails (2.1.2):
+    - NSRails/NSRails
+  - NSRails/NSRails (2.1.2)
   - SVProgressHUD (HEAD based on 1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - CollectionUtils-AFNetworking
+  - NSRails
   - SVProgressHUD (HEAD)
 
 SPEC CHECKSUMS:
   AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
-  CollectionUtils: 1d78b62163bae44fafbace59841b4d40c05422f7
-  CollectionUtils-AFNetworking: 57593eb6be59b0f26177caf2e44606fa655ff6e6
+  NSRails: c1507e5f40e8ce7c4f62b21430d43118386e2b74
   SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
 
 COCOAPODS: 0.33.1

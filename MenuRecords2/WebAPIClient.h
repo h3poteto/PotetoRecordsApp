@@ -21,6 +21,10 @@
                     failure:(void (^)(int statusCode, NSString *errorString))failure
                 target_file:(NSString *)target_file
                  parameters:(NSDictionary *)parameters;
+- (void)postParametersWhenSuccess:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                          failuer:(void (^)(int statusCode, NSString * errorString))failure
+                      target_file:(NSString *)target_file
+                       parameters:(NSDictionary *)parameters;
 - (int)statusCodeFromOperation:(AFHTTPRequestOperation *)operation;
 - (NSString *)errorStringFromOperation:(AFHTTPRequestOperation *)operation;
 @end

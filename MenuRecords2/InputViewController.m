@@ -40,7 +40,7 @@
     NSString    *dir = [paths objectAtIndex:0];
     _dbPath = [dir stringByAppendingPathComponent:@"menu_records.db"];
     FMDatabase  *db = [FMDatabase databaseWithPath:_dbPath];
-    NSString    *sql = @"CREATE TABLE IF NOT EXISTS menulogs (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, color_tag TEXT, date REAL);";
+    NSString    *sql = @"CREATE TABLE IF NOT EXISTS menulogs (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, color_tag TEXT, date REAL, sync BOOLEAN);";
     [db open];
     [db executeUpdate:sql];
     [db close];
@@ -203,12 +203,38 @@
     [self.colorTagButton.backgroundColor getRed:&tag_red green:&tag_green blue:&tag_blue alpha:&tag_alpha];
     NSString *string_hex = [NSString stringWithFormat:@"%.2X%.2X%.2X", (int)(tag_red * 255), (int)(tag_green * 255), (int)(tag_blue * 255)];
     
+    // 先にWebAPIClientによる登録処理
+    NSUserDefaults  *user_defaults = [NSUserDefaults standardUserDefaults];
+    NSString        *email = [user_defaults valueForKeyPath:@"email"];
+    NSString        *password = [user_defaults valueForKeyPath:@"password"];
+    
+    if (email && password) {
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        [params setObject:string_hex forKey:@"menurecord[color_tag]"];
+        [params setObject:string_date forKey:@"menurecord[date]"];
+        int   count = 0;
+        for ( UITextField *textField in _textFieldArray) {
+            [params setObject:textField.text forKey:[NSString stringWithFormat:@"menurecord[name][%d]",count]];
+            count++;
+        }
+        
+        [[WebAPIClient sharedClient] setEmail:email password:password];
+        [[WebAPIClient sharedClient] postParametersWhenSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            _sync = 1;
+        } failuer:^(int statusCode, NSString *errorString) {
+            _sync = 0;
+        } target_file:@"menurecords.json" parameters:params];
+    }else{
+        _sync = 0;
+    }
+    
+    // ローカルDBに保存
     [db open];
     
     //index
     int     index = 0;
     for ( UITextField *textField in _textFieldArray ){
-        NSString *insert_sql = [[NSString alloc] initWithFormat: @"INSERT INTO menulogs (parent_id, name, color_tag, date) VALUES ('%ld','%@', '%@',julianday('%@'));", (long)parent_id, textField.text, string_hex, string_date];
+        NSString *insert_sql = [[NSString alloc] initWithFormat: @"INSERT INTO menulogs (parent_id, name, color_tag, date, sync) VALUES ('%ld','%@', '%@',julianday('%@'),'%d');", (long)parent_id, textField.text, string_hex, string_date, _sync];
         [db executeUpdate:insert_sql];
         if (index == 0) {
             parent_id = (NSInteger)[db lastInsertRowId];

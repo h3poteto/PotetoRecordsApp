@@ -16,6 +16,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "FMDatabase.h"
+#import "WebAPIClient.h"
 
 @interface InputViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>{
     NSString        *_dbPath;
@@ -27,6 +28,7 @@
     NSString        *_saveStr; //　一時保保管
     UIColor         *_saveColor; // 一時保管
     NSInteger       _tagColorbutton;
+    int             _sync;
 }
 @property (strong, nonatomic) IBOutlet UIButton   *recordDate;
 @property (strong, nonatomic) NSDate            *dateValue; // date_value設定値

@@ -9,12 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-CollectionUtils-AFNetworking.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-CollectionUtils.xcscheme</key>
+		<key>Pods-NSRails.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,27 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>59525E6BC69941078081E868</key>
+		<key>08E719B6908F47848A5AFA5F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A85AA9BA1394B2A9B068E69</key>
+		<key>640679C74CFF4B2A9BAF72B6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8FA1165723BA4E6482ED1C47</key>
+		<key>E27A6985645A4BF8BAB5B693</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C031BB24DEFD46CC946F5C2F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F25BFB59A13A40DFB76C3552</key>
+		<key>FD71FD540B06493380FE7650</key>
 		<dict>
 			<key>primary</key>
 			<true/>
