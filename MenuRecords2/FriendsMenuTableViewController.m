@@ -92,7 +92,7 @@
     if (_firstMenu.count > 0) {
         cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@", [_firstMenu objectAtIndex:indexPath.row]];
         NSDictionary    *date_json = [_jsonMenu objectAtIndex:indexPath.row];
-        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%@", [date_json objectForKey:@"created_at"]];
+        cell.detailTextLabel.text = [[NSString alloc] initWithFormat:@"%@", [date_json objectForKey:@"date"]];
     }
     
     return cell;

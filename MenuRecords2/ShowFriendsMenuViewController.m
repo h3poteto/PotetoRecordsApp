@@ -87,7 +87,7 @@
     // 日時
     // date型変換
     NSDictionary    *first_menu = [json objectAtIndex:0];
-    NSString        *date_string = [first_menu objectForKey:@"created_at"];
+    NSString        *date_string = [first_menu objectForKey:@"date"];
     
     CGRect          date_rect = CGRectMake(100, TOP_SPAN, 200, 30);
     UILabel         *date_label = [[UILabel alloc] initWithFrame:date_rect];
