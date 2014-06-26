@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SVProgressHUD.h>
 #import "FMDatabase.h"
+#import "WebAPIClient.h"
 
 @interface TableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>{
     NSString *_dbPath;

@@ -227,5 +227,59 @@
 //  Menuを同期
 //====================================
 - (IBAction)syncButton:(id)sender {
+    [SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeBlack];
+    FMDatabase  *db = [FMDatabase databaseWithPath:_dbPath];
+    FMResultSet *still_sync;
+    FMResultSet *still_sync_child;
+    NSString    *parent_sql = @"SELECT id, name, color_tag, datetime(date,'localtime') FROM menulogs WHERE parent_id = '-1' AND     sync = 0";
+    
+    // datetime format
+    NSDateFormatter *fmt_datetime = [[NSDateFormatter alloc] init];
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ja_JP"];
+    [fmt_datetime setLocale:locale];
+    [fmt_datetime setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
+    [fmt_datetime setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+    
+    // WebAPIClientの呼び出し
+    NSUserDefaults  *user_defaults = [NSUserDefaults standardUserDefaults];
+    NSString        *email = [user_defaults valueForKeyPath:@"email"];
+    NSString        *password = [user_defaults valueForKeyPath:@"password"];
+    
+    [[WebAPIClient sharedClient] setEmail:email password:password];
+    
+    // ローカルDB each
+    [db open];
+    still_sync = [db executeQuery:parent_sql];
+    
+    while ([still_sync next]) {
+        NSString    *name = [still_sync stringForColumn:@"name"];
+        int         parent_id = [still_sync intForColumn:@"id"];
+        NSString    *color_tag = [still_sync stringForColumn:@"color_tag"];
+        NSString     *datetime = [still_sync stringForColumnIndex:3];
+        
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        [params setObject:color_tag forKey:@"menurecord[color_tag]"];
+        [params setObject:datetime forKey:@"menurecord[date]"];
+        NSString    *children_sql = [[NSString alloc] initWithFormat:@"SELECT name FROM menulogs WHERE parent_id = %d", parent_id];
+        still_sync_child = [db executeQuery:children_sql];
+        [params setObject:name forKey:@"menurecord[name][0]"];
+        int     count = 1;
+        while ( [still_sync_child next] ) {
+            [params setObject:[still_sync_child stringForColumn:@"name"] forKey:[NSString stringWithFormat:@"menurecord[name][%d]",count]];
+            count++;
+        }
+        [[WebAPIClient sharedClient] postParametersWhenSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            // sync = 1
+            NSString    *update_sql = [[NSString alloc] initWithFormat:@"UPDATE menulogs SET sync=1 WHERE id=%d OR parent_id=%d", parent_id, parent_id];
+            [db open];
+            [db executeUpdate:update_sql];
+            [db close];
+        } failuer:^(int statusCode, NSString *errorString) {
+            // sync = 0
+        } target_file:@"menurecords.json" parameters:params];
+    }
+    
+    [db close];
+    [SVProgressHUD dismiss];
 }
 @end
