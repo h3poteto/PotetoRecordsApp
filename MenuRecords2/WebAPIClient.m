@@ -22,7 +22,9 @@ static WebAPIClient *_sharedClient;
 
 - (id) init
 {
-    if (self = [super initWithBaseURL:[NSURL URLWithString:BASE_URL]]) {
+    _SECRET_TOKEN = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"SecretToken"];
+    _BASE_URL = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"BaseUrl"];
+    if (self = [super initWithBaseURL:[NSURL URLWithString:_BASE_URL]]) {
         
     }
     return self;
@@ -47,7 +49,7 @@ static WebAPIClient *_sharedClient;
                  parameters:(NSDictionary *)parameters
 {
     NSMutableDictionary    *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
-    [params setObject:SECRET_TOKEN forKey:@"token"];
+    [params setObject:_SECRET_TOKEN forKey:@"token"];
     
     [self   GET:target_file
             parameters:params
@@ -66,7 +68,7 @@ static WebAPIClient *_sharedClient;
                        parameters:(NSDictionary *)parameters
 {
     NSMutableDictionary     *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
-    [params setObject:SECRET_TOKEN forKey:@"token"];
+    [params setObject:_SECRET_TOKEN forKey:@"token"];
     
     [self   POST:target_file
       parameters:params

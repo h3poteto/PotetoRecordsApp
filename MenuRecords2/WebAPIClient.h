@@ -6,13 +6,14 @@
 //  Copyright (c) 2014年 AkiraFukushima. All rights reserved.
 //
 
-#define BASE_URL @"http://192.168.33.10:3000/"
-#define SECRET_TOKEN @"token"
 
 #import "AFHTTPRequestOperationManager.h"
 
 
-@interface WebAPIClient : AFHTTPRequestOperationManager
+@interface WebAPIClient : AFHTTPRequestOperationManager{
+    NSString    *_BASE_URL;
+    NSString    *_SECRET_TOKEN;
+}
 
 + (WebAPIClient *) sharedClient;
 

@@ -531,10 +531,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BASE_URL = "http://192.168.33.10:3000/";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MenuRecords2/MenuRecords2-Prefix.pch";
 				INFOPLIST_FILE = "MenuRecords2/MenuRecords2-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECRET_TOKEN = token;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -545,10 +547,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				BASE_URL = "http://h3poteto.uni.me/";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MenuRecords2/MenuRecords2-Prefix.pch";
 				INFOPLIST_FILE = "MenuRecords2/MenuRecords2-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SECRET_TOKEN = dc16b06a5a3489a2530ad1dbd827d3b4ec6a4c9cdf4878cc37086b6d5a9bc7ef9aa09df9fd5f3199c63e87cdc8d1e3f50b47b926b3a2ad69c6c656c7c7159a0b;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
