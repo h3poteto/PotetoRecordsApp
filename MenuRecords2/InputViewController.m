@@ -203,6 +203,8 @@
     [self.colorTagButton.backgroundColor getRed:&tag_red green:&tag_green blue:&tag_blue alpha:&tag_alpha];
     NSString *string_hex = [NSString stringWithFormat:@"%.2X%.2X%.2X", (int)(tag_red * 255), (int)(tag_green * 255), (int)(tag_blue * 255)];
     
+    /* 登録時タスクから同期処理を除く
+     あくまで同期ボタンにより同期する
     // 先にWebAPIClientによる登録処理
     NSUserDefaults  *user_defaults = [NSUserDefaults standardUserDefaults];
     NSString        *email = [user_defaults valueForKeyPath:@"email"];
@@ -227,10 +229,11 @@
     }else{
         _sync = 0;
     }
+     */
     
     // ローカルDBに保存
     [db open];
-    
+    _sync = 0;
     //index
     int     index = 0;
     for ( UITextField *textField in _textFieldArray ){
