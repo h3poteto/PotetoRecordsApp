@@ -35,6 +35,10 @@
     // メニューにeditを表示
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     //DB confirm
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
     NSString *dir = [paths objectAtIndex:0];
@@ -61,7 +65,7 @@
     [fmt_date setLocale:locale];
     [fmt_date setCalendar:[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]];
     [fmt_date setDateFormat:@"yyyy/MM/dd"];
- 
+    
     while ([_history next]) {
         NSString *name = [_history stringForColumn:@"name"];
         int menu_id = [_history intForColumn:@"id"];
@@ -96,6 +100,9 @@
     }
     [_history close];
     [db close];
+    
+    // table 更新
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
