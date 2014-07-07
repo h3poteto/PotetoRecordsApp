@@ -45,7 +45,7 @@
     _dbPath = [dir stringByAppendingPathComponent:@"menu_records.db"];
     FMDatabase *db = [FMDatabase databaseWithPath:_dbPath];
     
-    NSString *sql = @"SELECT * FROM menulogs WHERE parent_id = '-1';";
+    NSString *sql = @"SELECT * FROM menulogs WHERE parent_id = '-1' AND sync != '-1';";
     [db open];
     _history = [db executeQuery:sql];
     _menuList = [NSMutableArray array];
@@ -150,7 +150,6 @@
     cell.textLabel.text = [[NSString alloc] initWithFormat:@"%@, %@...",[_menuList objectAtIndex:indexPath.row],[_secondMenuList objectAtIndex:indexPath.row]];
     cell.detailTextLabel.text = [_dateList objectAtIndex:indexPath.row];
     
-    // record削除アクション実装
     
     return cell;
 }
@@ -170,17 +169,16 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // まずはサーバー側を削除
-        
-        // sqliteから削除
         int delete_target_id = [[_idList objectAtIndex:indexPath.row] intValue];
-        NSString *delete_child_sql = [[NSString alloc] initWithFormat:@"DELETE FROM menulogs WHERE parent_id = '%d';", delete_target_id];
-        NSString *delete_parent_sql = [[NSString alloc] initWithFormat:@"DELETE FROM menulogs WHERE id = '%d';", delete_target_id];
+        
+        // sqliteのsyncフラグ更新
+        NSString *update_child_sql = [[NSString alloc] initWithFormat:@"UPDATE menulogs SET sync = -1 WHERE parent_id = '%d';", delete_target_id];
+        NSString *update_parent_sql = [[NSString alloc] initWithFormat:@"UPDATE menulogs SET sync = -1 WHERE id = '%d';", delete_target_id];
         FMDatabase *db = [FMDatabase databaseWithPath:_dbPath];
         
         [db open];
-        [db executeUpdate:delete_child_sql];
-        [db executeUpdate:delete_parent_sql];
+        [db executeUpdate:update_child_sql];
+        [db executeUpdate:update_parent_sql];
         [db close];
         
         // Delete the row from the data source
@@ -291,6 +289,29 @@
     }
     
     [db close];
+    
+    
+    // delete処理
+    NSString    *delete_target_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE sync = -1"];
+    FMResultSet *delete_target;
+    
+    [db open];
+    delete_target = [db executeQuery:delete_target_sql];
+    while ( [delete_target next] ){
+        int     original_id = [delete_target intForColumn:@"original_id"];
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        [params setObject:[NSString stringWithFormat:@"%d", original_id] forKey:@"original_id"];
+        [[WebAPIClient sharedClient] postParametersWhenSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSString    *delete_sql = [[NSString alloc] initWithFormat:@"DELETE FROM menulogs WHERE original_id = %d", original_id];
+            [db open];
+            [db executeUpdate:delete_sql];
+            [db close];
+        } failuer:^(int statusCode, NSString *errorString) {
+            // still sync = -1
+        } target_file:@"menurecords/delete.json" parameters:params];
+    }
+    [db close];
+    
     [SVProgressHUD dismiss];
 }
 @end
