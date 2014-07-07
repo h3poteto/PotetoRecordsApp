@@ -173,7 +173,7 @@
     NSString    *children_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE parent_id = '%d';", menu_index];
     FMResultSet *children = [db executeQuery:children_sql];
     
-    int     child_index = 2;
+    int     child_index = 3;
     while ([children next]) {
         if (child_index * FIELD_SPAN + 250 > _scrollView.contentSize.height) {
             _scrollView.contentSize = CGSizeMake(_scrollView.contentSize.width, child_index * FIELD_SPAN + 250);

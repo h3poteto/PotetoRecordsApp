@@ -45,7 +45,7 @@
     _dbPath = [dir stringByAppendingPathComponent:@"menu_records.db"];
     FMDatabase *db = [FMDatabase databaseWithPath:_dbPath];
     
-    NSString *sql = @"SELECT * FROM menulogs WHERE parent_id = '-1' AND sync != '-1';";
+    NSString *sql = @"SELECT * FROM menulogs WHERE parent_id = '-1' AND sync != '-1' ORDER BY datetime(date,'localtime') DESC;";
     [db open];
     _history = [db executeQuery:sql];
     _menuList = [NSMutableArray array];
