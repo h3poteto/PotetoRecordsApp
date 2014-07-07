@@ -82,11 +82,14 @@
         // 子メニューを取得
         NSString *second_menu_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE parent_id = '%d';", menu_id];
         FMResultSet *second_menu_result = [db executeQuery:second_menu_sql];
-        [second_menu_result next];
-        // 存在しなければwarningが出るけど気にしない，あとでpresent?確認を取って
-        NSString *second_menu = [second_menu_result stringForColumn:@"name"];
-        if (second_menu){
-            [_secondMenuList addObject:second_menu];
+        
+        if ([second_menu_result next]){
+            NSString *second_menu = [second_menu_result stringForColumn:@"name"];
+            if (second_menu){
+                [_secondMenuList addObject:second_menu];
+            }else{
+                [_secondMenuList addObject:@""];
+            }
         }else{
             [_secondMenuList addObject:@""];
         }
