@@ -207,7 +207,17 @@
     _sync = 0;
     
     // original_id
-    int     original_id = arc4random();
+    int     original_id;
+    FMResultSet *check_result;
+    
+    // 存在チェック
+    [db open];
+    do{
+        original_id = arc4random();
+        NSString    *original_check_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE original_id = %d", original_id];
+        check_result = [db executeQuery:original_check_sql];
+    }while ( [check_result next] );
+    [db close];
     
     /* 登録時タスクから同期処理を除く
      あくまで同期ボタンにより同期する
