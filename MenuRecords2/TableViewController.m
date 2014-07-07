@@ -163,7 +163,9 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // dbを先に削除
+        // まずはサーバー側を削除
+        
+        // sqliteから削除
         int delete_target_id = [[_idList objectAtIndex:indexPath.row] intValue];
         NSString *delete_child_sql = [[NSString alloc] initWithFormat:@"DELETE FROM menulogs WHERE parent_id = '%d';", delete_target_id];
         NSString *delete_parent_sql = [[NSString alloc] initWithFormat:@"DELETE FROM menulogs WHERE id = '%d';", delete_target_id];
@@ -231,7 +233,7 @@
     FMDatabase  *db = [FMDatabase databaseWithPath:_dbPath];
     FMResultSet *still_sync;
     FMResultSet *still_sync_child;
-    NSString    *parent_sql = @"SELECT id, name, color_tag, datetime(date,'localtime') FROM menulogs WHERE parent_id = '-1' AND     sync = 0";
+    NSString    *parent_sql = @"SELECT id, name, color_tag, datetime(date,'localtime'), original_id FROM menulogs WHERE parent_id = '-1' AND     sync = 0";
     
     // datetime format
     NSDateFormatter *fmt_datetime = [[NSDateFormatter alloc] init];
@@ -256,10 +258,12 @@
         int         parent_id = [still_sync intForColumn:@"id"];
         NSString    *color_tag = [still_sync stringForColumn:@"color_tag"];
         NSString     *datetime = [still_sync stringForColumnIndex:3];
+        int         original_id = [still_sync intForColumn:@"original_id"];
         
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         [params setObject:color_tag forKey:@"menurecord[color_tag]"];
         [params setObject:datetime forKey:@"menurecord[date]"];
+        [params setObject:[NSString stringWithFormat:@"%d", original_id] forKey:@"menurecord[original_id]"];
         NSString    *children_sql = [[NSString alloc] initWithFormat:@"SELECT name FROM menulogs WHERE parent_id = %d", parent_id];
         still_sync_child = [db executeQuery:children_sql];
         [params setObject:name forKey:@"menurecord[name][0]"];

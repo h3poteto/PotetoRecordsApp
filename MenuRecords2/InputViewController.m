@@ -40,7 +40,7 @@
     NSString    *dir = [paths objectAtIndex:0];
     _dbPath = [dir stringByAppendingPathComponent:@"menu_records.db"];
     FMDatabase  *db = [FMDatabase databaseWithPath:_dbPath];
-    NSString    *sql = @"CREATE TABLE IF NOT EXISTS menulogs (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, color_tag TEXT, date REAL, sync BOOLEAN);";
+    NSString    *sql = @"CREATE TABLE IF NOT EXISTS menulogs (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, color_tag TEXT, original_id INTEGER ,date REAL, sync BOOLEAN);";
     [db open];
     [db executeUpdate:sql];
     [db close];
@@ -203,6 +203,12 @@
     [self.colorTagButton.backgroundColor getRed:&tag_red green:&tag_green blue:&tag_blue alpha:&tag_alpha];
     NSString *string_hex = [NSString stringWithFormat:@"%.2X%.2X%.2X", (int)(tag_red * 255), (int)(tag_green * 255), (int)(tag_blue * 255)];
     
+    // sync
+    _sync = 0;
+    
+    // original_id
+    int     original_id = arc4random();
+    
     /* 登録時タスクから同期処理を除く
      あくまで同期ボタンにより同期する
     // 先にWebAPIClientによる登録処理
@@ -233,11 +239,11 @@
     
     // ローカルDBに保存
     [db open];
-    _sync = 0;
+
     //index
     int     index = 0;
     for ( UITextField *textField in _textFieldArray ){
-        NSString *insert_sql = [[NSString alloc] initWithFormat: @"INSERT INTO menulogs (parent_id, name, color_tag, date, sync) VALUES ('%ld','%@', '%@',julianday('%@'),'%d');", (long)parent_id, textField.text, string_hex, string_date, _sync];
+        NSString *insert_sql = [[NSString alloc] initWithFormat: @"INSERT INTO menulogs (parent_id, name, color_tag, original_id, date, sync) VALUES ('%ld','%@', '%@', '%d',julianday('%@'),'%d');", (long)parent_id, textField.text, string_hex, original_id, string_date, _sync];
         [db executeUpdate:insert_sql];
         if (index == 0) {
             parent_id = (NSInteger)[db lastInsertRowId];
