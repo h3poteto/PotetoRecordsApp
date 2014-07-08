@@ -236,7 +236,7 @@
 //  Menuを同期
 //====================================
 - (IBAction)syncButton:(id)sender {
-    [SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeBlack];
+
     FMDatabase  *db = [FMDatabase databaseWithPath:_dbPath];
     FMResultSet *still_sync;
     FMResultSet *still_sync_child;
@@ -256,11 +256,13 @@
     
     [[WebAPIClient sharedClient] setEmail:email password:password];
     
-    // ローカルDB each
+    // ローカルDBに追加された分の同期処理
     [db open];
     still_sync = [db executeQuery:parent_sql];
     
     while ([still_sync next]) {
+        [SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeBlack];
+        
         NSString    *name = [still_sync stringForColumn:@"name"];
         int         parent_id = [still_sync intForColumn:@"id"];
         NSString    *color_tag = [still_sync stringForColumn:@"color_tag"];
@@ -285,21 +287,25 @@
             [db open];
             [db executeUpdate:update_sql];
             [db close];
+            
+            [SVProgressHUD dismiss];
         } failuer:^(int statusCode, NSString *errorString) {
             // sync = 0
+            [SVProgressHUD dismiss];
         } target_file:@"menurecords.json" parameters:params];
     }
     
     [db close];
     
     
-    // delete処理
+    // deleteの同期処理
     NSString    *delete_target_sql = [[NSString alloc] initWithFormat:@"SELECT * FROM menulogs WHERE sync = -1"];
     FMResultSet *delete_target;
     
     [db open];
     delete_target = [db executeQuery:delete_target_sql];
     while ( [delete_target next] ){
+        [SVProgressHUD showWithStatus:@"Loading" maskType:SVProgressHUDMaskTypeBlack];
         int     original_id = [delete_target intForColumn:@"original_id"];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         [params setObject:[NSString stringWithFormat:@"%d", original_id] forKey:@"original_id"];
@@ -308,12 +314,14 @@
             [db open];
             [db executeUpdate:delete_sql];
             [db close];
+            
+            [SVProgressHUD dismiss];
         } failuer:^(int statusCode, NSString *errorString) {
             // still sync = -1
+            [SVProgressHUD dismiss];
         } target_file:@"menurecords/delete.json" parameters:params];
     }
     [db close];
     
-    [SVProgressHUD dismiss];
 }
 @end
