@@ -10,7 +10,7 @@
 #define FIELD_SPAN  60
 
 #import <UIKit/UIKit.h>
-#import "FMDatabase.h"
+#import "LocalDBClient.h"
 
 @interface ShowMenuViewController : UIViewController{
     NSString *_dbPath;

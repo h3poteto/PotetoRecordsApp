@@ -34,16 +34,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    //DB confirm
-    NSArray     *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
-    NSString    *dir = [paths objectAtIndex:0];
-    _dbPath = [dir stringByAppendingPathComponent:@"menu_records.db"];
-    FMDatabase  *db = [FMDatabase databaseWithPath:_dbPath];
-    NSString    *sql = @"CREATE TABLE IF NOT EXISTS menulogs (id INTEGER PRIMARY KEY AUTOINCREMENT, parent_id INTEGER, name TEXT, color_tag TEXT, original_id INTEGER ,date REAL, sync BOOLEAN);";
-    [db open];
-    [db executeUpdate:sql];
-    [db close];
+    
+    // DB準備
+    LocalDBClient   *client = [[LocalDBClient alloc] init];
+    _dbPath = client.dbPath;
+    
     
     // prepare scroll view
     _scrollView = [[UIScrollView alloc] init];

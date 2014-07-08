@@ -39,10 +39,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //DB confirm
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
-    NSString *dir = [paths objectAtIndex:0];
-    _dbPath = [dir stringByAppendingPathComponent:@"menu_records.db"];
+    // DB準備
+    LocalDBClient   *client = [[LocalDBClient alloc] init];
+    _dbPath = client.dbPath;
     FMDatabase *db = [FMDatabase databaseWithPath:_dbPath];
     
     NSString *sql = @"SELECT * FROM menulogs WHERE parent_id = '-1' AND sync != '-1' ORDER BY datetime(date,'localtime') DESC;";

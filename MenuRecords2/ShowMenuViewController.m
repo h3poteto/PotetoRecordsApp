@@ -36,10 +36,9 @@
     [self.view addSubview:_scrollView];
     [_scrollView flashScrollIndicators];
 
-    // database準備
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
-    NSString *dir = [paths objectAtIndex:0];
-    _dbPath = [dir stringByAppendingPathComponent:@"menu_records.db"];
+    // DB準備
+    LocalDBClient   *client = [[LocalDBClient alloc] init];
+    _dbPath = client.dbPath;
     FMDatabase *db = [FMDatabase databaseWithPath:_dbPath];
     
     // datetime関連準備

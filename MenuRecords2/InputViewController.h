@@ -15,7 +15,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "FMDatabase.h"
+#import "LocalDBClient.h"
 #import "WebAPIClient.h"
 
 @interface InputViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>{
