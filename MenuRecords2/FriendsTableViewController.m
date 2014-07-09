@@ -41,7 +41,7 @@
         if (responseObject) {
             for ( NSDictionary *json in responseObject ){
                 // _friendsに突っ込む
-                NSString    *email = [json objectForKey:@"email"];
+                NSString    *email = [json objectForKey:@"name"];
                 [_friends addObject:email];
                 [_ids addObject:[json objectForKey:@"id"]];
             }
