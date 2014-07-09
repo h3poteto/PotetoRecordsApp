@@ -214,34 +214,6 @@
     }while ( [check_result next] );
     [db close];
     
-    /* 登録時タスクから同期処理を除く
-     あくまで同期ボタンにより同期する
-    // 先にWebAPIClientによる登録処理
-    NSUserDefaults  *user_defaults = [NSUserDefaults standardUserDefaults];
-    NSString        *email = [user_defaults valueForKeyPath:@"email"];
-    NSString        *password = [user_defaults valueForKeyPath:@"password"];
-    
-    if (email && password) {
-        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        [params setObject:string_hex forKey:@"menurecord[color_tag]"];
-        [params setObject:string_date forKey:@"menurecord[date]"];
-        int   count = 0;
-        for ( UITextField *textField in _textFieldArray) {
-            [params setObject:textField.text forKey:[NSString stringWithFormat:@"menurecord[name][%d]",count]];
-            count++;
-        }
-        
-        [[WebAPIClient sharedClient] setEmail:email password:password];
-        [[WebAPIClient sharedClient] postParametersWhenSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            _sync = 1;
-        } failuer:^(int statusCode, NSString *errorString) {
-            _sync = 0;
-        } target_file:@"menurecords.json" parameters:params];
-    }else{
-        _sync = 0;
-    }
-     */
-    
     // ローカルDBに保存
     [db open];
 

@@ -113,6 +113,7 @@
     [[WebAPIClient sharedClient] getIndexWhenSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[NSUserDefaults standardUserDefaults] setValue:password forKey:@"password"];
         [SVProgressHUD showSuccessWithStatus:@"Saved"];
+        [self.navigationController popViewControllerAnimated:YES];
     } failure:^(int statusCode, NSString *errorString) {
         [SVProgressHUD showErrorWithStatus:@"Cannot Login"];
     } target_file:@"friends.json"
