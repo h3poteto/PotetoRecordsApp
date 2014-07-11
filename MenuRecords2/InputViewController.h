@@ -18,7 +18,7 @@
 #import "LocalDBClient.h"
 #import "WebAPIClient.h"
 
-@interface InputViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate>{
+@interface InputViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate>{
     NSString        *_dbPath;
     UIActionSheet   *_basicSheet;
     UIActionSheet   *_colorSheet;
@@ -29,12 +29,14 @@
     UIColor         *_saveColor; // 一時保管
     NSInteger       _tagColorbutton;
     int             _sync;
+    UITextField     *_activeField;
 }
 @property (strong, nonatomic) IBOutlet UIButton   *recordDate;
 @property (strong, nonatomic) NSDate            *dateValue; // date_value設定値
 @property (strong, nonatomic) IBOutlet UIButton   *addMenuButton;
 @property (strong, nonatomic) IBOutlet UIButton   *submitButton;
 @property (strong, nonatomic) IBOutlet UIButton *colorTagButton;
+@property (strong, nonatomic) UITapGestureRecognizer *singleTap;
 
 
 - (void)submit:(id)sender;
@@ -47,5 +49,7 @@
 - (void)colorSet;
 - (void)colorCancelSet;
 - (void)touchColor:(UIButton *)button;
+- (void)keyboardWillShow:(NSNotification *)notification;
+- (void)keyboardWillHide:(NSNotification *)notification;
 
 @end

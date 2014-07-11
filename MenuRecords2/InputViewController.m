@@ -49,9 +49,30 @@
     [self.view addSubview:_scrollView];
     [_scrollView flashScrollIndicators];
     
-    _saveStr = @"";
     
-    // init recordDate
+    // キーボード表示時にscrollViewを動かすためにイベント登録
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    
+    [defaultCenter addObserver:self
+                      selector:@selector(keyboardWillShow:)
+                          name:UIKeyboardWillShowNotification
+                        object:nil];
+    [defaultCenter addObserver:self
+                      selector:@selector(keyboardWillHide:)
+                          name:UIKeyboardWillHideNotification
+                        object:nil];
+    
+    // キーボード外のイベント:singleTapイベント登録
+    self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
+    self.singleTap.delegate = self;
+    self.singleTap.numberOfTapsRequired = 1;
+    [_scrollView addGestureRecognizer:self.singleTap];
+   _scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    
+    
+    // 日付関連
+    _saveStr = @"";
+
     dateValue = [NSDate date];
     NSDateFormatter     *fmt = [[NSDateFormatter alloc] init];
     NSLocale    *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ja_JP"];
@@ -162,6 +183,58 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    _activeField = textField;
+    return YES;
+}
+
+
+//========================================
+//  キーボードが表示されたときに呼び出される
+//========================================
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    // scrollViewで位置調節
+    NSDictionary    *userInfo;
+    userInfo = [notification userInfo];
+    
+    CGRect  keyboardFrameEnd = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGRect  screenBounds = [[UIScreen mainScreen] bounds];
+    float   screenHeight = screenBounds.size.height;
+    if((_activeField.frame.origin.y + _activeField.frame.size.height)>(screenHeight - keyboardFrameEnd.size.height - 30)){
+        [UIView animateWithDuration:0.3
+                         animations:^{
+                             _scrollView.frame = CGRectMake(0, screenHeight - _activeField.frame.origin.y - _activeField.frame.size.height - keyboardFrameEnd.size.height - 20, _scrollView.frame.size.width,_scrollView.frame.size.height);
+                         }];
+    }
+    
+}
+
+//========================================
+//  キーボードが隠れたときに呼び出される
+//========================================
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    // 位置調節解除
+    [UIView animateWithDuration:0.2
+                     animations:^{_scrollView.frame = CGRectMake(0, 0, _scrollView.frame.size.width,_scrollView.frame.size.height);
+                     }];
+    _activeField = nil;
+    return;
+    
+}
+
+//========================================
+//  タップイベント時にキーボードを隠す
+//========================================
+-(void)onSingleTap:(UITapGestureRecognizer *)gestureRecognizer
+{
+    [self.navigationController.view endEditing:YES];
+}
+
+
 
 //========================================
 //  return が押されたときにキーボードを隠す
