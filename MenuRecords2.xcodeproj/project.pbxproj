@@ -19,6 +19,7 @@
 		E94DBE78192A09C600CBD904 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E94DBE76192A09C600CBD904 /* TableViewController.m */; };
 		E94DBE7A192A09E300CBD904 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E94DBE79192A09E300CBD904 /* libsqlite3.0.dylib */; };
 		E95F808F193876F4005E1BAF /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95F808E193876F4005E1BAF /* FriendsTableViewController.m */; };
+		E978B0BE196FD0CD00F1B0EB /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E978B0BD196FD0CD00F1B0EB /* SignupViewController.m */; };
 		E986952719363FC5000E38E8 /* WebAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E986952619363FC5000E38E8 /* WebAPIClient.m */; };
 		E994B8E0194613F60004E705 /* ShowFriendsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E994B8DF194613F60004E705 /* ShowFriendsMenuViewController.m */; };
 		E99A9E47192A047C003F9668 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99A9E46192A047C003F9668 /* Foundation.framework */; };
@@ -77,6 +78,8 @@
 		E94DBE79192A09E300CBD904 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		E95F808D193876F4005E1BAF /* FriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTableViewController.h; sourceTree = "<group>"; };
 		E95F808E193876F4005E1BAF /* FriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableViewController.m; sourceTree = "<group>"; };
+		E978B0BC196FD0CD00F1B0EB /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignupViewController.h; sourceTree = "<group>"; };
+		E978B0BD196FD0CD00F1B0EB /* SignupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignupViewController.m; sourceTree = "<group>"; };
 		E986952519363FC5000E38E8 /* WebAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebAPIClient.h; sourceTree = "<group>"; };
 		E986952619363FC5000E38E8 /* WebAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebAPIClient.m; sourceTree = "<group>"; };
 		E994B8DE194613F60004E705 /* ShowFriendsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowFriendsMenuViewController.h; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				E95F808E193876F4005E1BAF /* FriendsTableViewController.m */,
 				E9BB949F1937280B008CE3B2 /* LoginViewController.h */,
 				E9BB94A01937280B008CE3B2 /* LoginViewController.m */,
+				E978B0BC196FD0CD00F1B0EB /* SignupViewController.h */,
+				E978B0BD196FD0CD00F1B0EB /* SignupViewController.m */,
 				E986952519363FC5000E38E8 /* WebAPIClient.h */,
 				E986952619363FC5000E38E8 /* WebAPIClient.m */,
 				E99A9E5B192A047C003F9668 /* ViewController.h */,
@@ -407,6 +412,7 @@
 				E99A9E57192A047C003F9668 /* AppDelegate.m in Sources */,
 				E94DBE6E192A09A400CBD904 /* FMDatabaseQueue.m in Sources */,
 				E994B8E0194613F60004E705 /* ShowFriendsMenuViewController.m in Sources */,
+				E978B0BE196FD0CD00F1B0EB /* SignupViewController.m in Sources */,
 				E99A9E53192A047C003F9668 /* main.m in Sources */,
 				E94DBE6B192A09A400CBD904 /* FMDatabase.m in Sources */,
 				E94DBE6F192A09A400CBD904 /* FMResultSet.m in Sources */,

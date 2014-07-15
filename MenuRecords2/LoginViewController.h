@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <SVProgressHUD.h>
 #import "WebAPIClient.h"
+#import "SignupViewController.h"
 
 @interface LoginViewController : UIViewController<UITextFieldDelegate>
 
@@ -16,7 +17,8 @@
 @property (strong, nonatomic) IBOutlet UITextField  *emailField;
 @property (strong, nonatomic) IBOutlet UITextField  *passwordField;
 @property (strong, nonatomic) IBOutlet UIButton     *loginButton;
+@property (strong, nonatomic) IBOutlet UIButton     *signupButton;
 
 - (IBAction)LoginButtonSubmit:(id)sender;
-
+- (IBAction)SignupButtonSubmit:(id)sender;
 @end

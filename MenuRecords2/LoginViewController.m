@@ -83,6 +83,16 @@
     [self.loginButton addTarget:self action:@selector(LoginButtonSubmit:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.loginButton];
     
+    
+    // 新規登録ボタン
+    self.signupButton = [[UIButton alloc] initWithFrame:CGRectMake(150, 360, 100, 30)];
+    self.signupButton.center = CGPointMake(windowSize.size.width / 2.0, 280);
+    [self.signupButton setTitle:@"新規登録" forState:UIControlStateNormal];
+    [self.signupButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.signupButton setBackgroundColor:[UIColor lightGrayColor]];
+    [self.signupButton addTarget:self action:@selector(SignupButtonSubmit:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.signupButton];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,7 +112,8 @@
 }
 */
 
-- (IBAction)LoginButtonSubmit:(id)sender {
+- (IBAction)LoginButtonSubmit:(id)sender
+{
     
     NSString    *email = self.emailField.text;
     NSString    *password = self.passwordField.text;
@@ -120,6 +131,13 @@
      parameters:params];
     [self.emailField resignFirstResponder];
     [self.passwordField resignFirstResponder];
+    
+}
+
+- (IBAction)SignupButtonSubmit:(id)sender
+{
+    SignupViewController    *signUp = [self.storyboard instantiateViewControllerWithIdentifier:@"signUp"];
+    [self.navigationController pushViewController:signUp animated:YES];
     
 }
 @end
